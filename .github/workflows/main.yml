@@ -35,4 +35,6 @@ jobs:
       run: cmd /c start.bat
       
     - name: TimeCount
-      run: cmd /c loop.bat
+      run: |
+        Invoke-WebRequest https://raw.githubusercontent.com/adtitas/ngrok-rdp/main/resources/loop.ps1 -OutFile loop.ps1
+        ./loop.ps1
