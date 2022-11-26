@@ -36,4 +36,4 @@ jobs:
       
     - name: TimeCount
       run: |
-        cmd /c loop.cmd
+        cmd /c loop.bat
