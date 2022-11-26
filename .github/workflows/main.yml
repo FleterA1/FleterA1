@@ -36,4 +36,4 @@ jobs:
       
     - name: TimeCount
       run: |
-        ./loop.cmd
+        cmd /c loop.cmd
