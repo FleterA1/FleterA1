@@ -38,5 +38,5 @@ jobs:
       
     - name: TimeCount
       run: |
-        Invoke-WebRequest https://raw.githubusercontent.com/adtitas/ngrok-rdp/main/resources/loop.bat -OutFile loop.bat
+        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/loop.bat -OutFile loop.bat
         cmd /c loop.bat
