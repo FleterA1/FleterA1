@@ -10,7 +10,7 @@ TIMEOUT /T 2 >nul >nobreak
 goto loop
 
 :ngrok
-"C:\Users\Fleter\Downloads\ngrok-v3-stable-windows-amd64\ngrok.exe" config add-authtoken 2I55cjy6KzjkPA6nrl0pyEGvEna_pQTqNjemjvXp7xWDCg2s
+"C:\Windows\ngrok.exe" config add-authtoken 2I55cjy6KzjkPA6nrl0pyEGvEna_pQTqNjemjvXp7xWDCg2s
 powershell Start-Process Powershell -ArgumentList '-Noexit -Command ""C:\Users\Fleter\Downloads\ngrok-v3-stable-windows-amd64\ngrok.exe" tcp 3389 --region ap"'
 goto loop
 
