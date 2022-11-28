@@ -5,14 +5,13 @@ tasklist | find /i "ngrok.exe" && curl -s localhost:4040/api/tunnels | jq -r .tu
 :loop
 echo.
 tasklist | find /i "ngrok.exe" || goto exit
-tasklist | find /i "ngrok.exe" >Nul && curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url || goto exit
-timeout /T 2 >nul >nobreak
+ping -l 1 -n 5 -4 0.tcp.ap.ngrok.io
 goto loop
 
 :ngrok
 "C:\Windows\ngrok.exe" config add-authtoken 2I55cjy6KzjkPA6nrl0pyEGvEna_pQTqNjemjvXp7xWDCg2s
 powershell Start-Process Powershell -ArgumentList '-Noexit -Command ""C:\Users\Fleter\Downloads\ngrok-v3-stable-windows-amd64\ngrok.exe" tcp 3389 --region ap"'
-timeout /T 5 >nul >nobreak
+timeout /T 5 >nul
 goto loop
 
 :exit
