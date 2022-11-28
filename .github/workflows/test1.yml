@@ -3,7 +3,6 @@ name: Node CI
 
 on:
   push:
-  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -41,27 +40,6 @@ jobs:
         Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp 3389 --region ap"'
         cmd /c start.bat
         
-    - name: Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node }}
-        cache: yarn
-
-    - name: yarn install
-      run: yarn install
-
-    - name: yarn test
-      run: ${{ matrix.commandPrefix }} yarn test --runInBand --coverage
-      env:
-        CI: true
-
-    - name: Upload coverage to Codecov
-      if: runner.os == 'Linux'
-      uses: codecov/codecov-action@v3
-      with:
-        token: ${{secrets.CODECOV_TOKEN}}
-        file: ./coverage/clover.xml
-        
-    - name: Deploying
+    - name: Host
       run: |
         cmd /c loop.bat
