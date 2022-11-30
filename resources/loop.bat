@@ -4,8 +4,9 @@ tasklist | find /i "ngrok.exe" && curl -s localhost:4040/api/tunnels | jq -r .tu
 
 :loop
 echo.
-tasklist | find /i "ngrok.exe" || goto exit
-ping -l 1 -n 5 -4 0.tcp.ap.ngrok.io
+tasklist | find /i "ngrok.exe" || goto ngrok
+tasklist | find /i "ngrok.exe" && curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url || goto loop
+timeout /T 5 >nul
 goto loop
 
 :ngrok
