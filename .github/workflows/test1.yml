@@ -26,7 +26,7 @@ jobs:
         Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/loop.bat -OutFile loop.bat
         Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/winrar.exe -OutFile winrar.exe
         Expand-Archive ngrok.zip
-        .\ngrok\ngrok.exe config add-authtoken 2I55cjy6KzjkPA6nrl0pyEGvEna_pQTqNjemjvXp7xWDCg2s
+        .\ngrok\ngrok.exe config add-authtoken 1jlQ3vQwtRHGQaZ4lkIhaslLt31_5knGeAyKG3dvVJbt7nuRr
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
         Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
