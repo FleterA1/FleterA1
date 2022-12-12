@@ -20,7 +20,7 @@ jobs:
     - name: Host
       run: |
         Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/loop.ps1 -OutFile loop.ps1
-        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/req.bat -OutFile req.bat
+        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/req.ps1 -OutFile req.ps1
         Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/start.bat -OutFile start.bat
         Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.zip -OutFile ngrok.zip
         Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.exe -OutFile ngrok.exe
@@ -35,7 +35,7 @@ jobs:
 
     - name: Deploy
       run: |
-        cmd /c req.bat
+        cmd /c req.ps1
         cmd /c start.bat
 
 
