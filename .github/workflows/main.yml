@@ -42,7 +42,6 @@ jobs:
     - name: host
       env:
         USER: ${{ secrets.ACT_USER }}
-        PASSWORD: ${{ secrets.ACT_PASSWORD }}
       run: |
         cmd /c @echo off
         cmd /c secedit /export /cfg c:\secpol.cfg
