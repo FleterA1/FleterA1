@@ -17,9 +17,6 @@ jobs:
           commandPrefix: ''
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v3
-
-
     - name: Import
       env:
         REPO: ${{ secrets.ACT_REPO }}
