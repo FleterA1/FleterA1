@@ -18,20 +18,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - name: Import
-      env:
-        REPO: ${{ secrets.ACT_REPO }}
       run: |
-        Invoke-WebRequest https://raw.githubusercontent.com/$Env:REPO/main/resources/loop.ps1 -OutFile loop.ps1
-        Invoke-WebRequest https://raw.githubusercontent.com/$Env:REPO/main/resources/ngrok.zip -OutFile ngrok.zip
-        Invoke-WebRequest https://raw.githubusercontent.com/$Env:REPO/main/resources/ngrok.exe -OutFile ngrok.exe
+        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/loop.ps1 -OutFile loop.ps1
+        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.zip -OutFile ngrok.zip
+        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.exe -OutFile ngrok.exe
 
 
     - name: Host (ngrok)
-      env:
-        TOKEN: ${{ secrets.ACT_TOKEN }}
       run: |
         Expand-Archive ngrok.zip
-        .\ngrok\ngrok.exe config add-authtoken $Env:TOKEN
+        .\ngrok\ngrok.exe config add-authtoken 1jlQ3vQwtRHGQaZ4lkIhaslLt31_5knGeAyKG3dvVJbt7nuRr
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
         Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
@@ -40,8 +36,6 @@ jobs:
 
 
     - name: host
-      env:
-        USER: ${{ secrets.ACT_USER }}
       run: |
         cmd /c @echo off
         cmd /c secedit /export /cfg c:\secpol.cfg
@@ -51,21 +45,20 @@ jobs:
         cmd /c net config server /srvcomment:"Fleter.." > out.txt 2>&1
         cmd /c REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F > out.txt 2>&1
         cmd /c REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v Wallpaper /t REG_SZ /d D:\a\wallpaper.bat
-        cmd /c net user $Env:USER $Env:PASSWORD /add >nul
-        cmd /c net localgroup administrators $Env:USER /add >nul
-        cmd /c net user $Env:USER /active:yes >nul
+        cmd /c net user Fleter Admin@ys?0235 /add >nul
+        cmd /c net localgroup administrators Fleter /add >nul
+        cmd /c net user Fleter /active:yes >nul
         cmd /c net user installer /delete >nul
         cmd /c diskperf -Y >nul
         cmd /c sc config Audiosrv start= auto >nul
         cmd /c sc start audiosrv >nul
-        cmd /c ICACLS C:\Windows\Temp /grant $Env:USER:F >nul
-        cmd /c ICACLS C:\Windows\installer /grant $Env:USER:F >nul
+        cmd /c ICACLS C:\Windows\Temp /grant Fleter:F >nul
+        cmd /c ICACLS C:\Windows\installer /grant Fleter:F >nul
         cmd /c echo Successfully installed!
         cmd /c echo IP:
         cmd /c tasklist | find /i "ngrok.exe" >Nul && curl -s localhost:4040/api/tunnels | jq -r .tunnels[0].public_url || echo "Failed to retreive NGROK authtoken - check again your authtoken"
-        cmd /c echo Username: $Env:USER
-        cmd /c echo Password: $Env:PASSWORD
-        cmd /c ping -n 10 127.0.0.1 >nul
+        cmd /c echo Username: Fleter
+        cmd /c echo Password: Admin@ys?0235
 
 
     - name: AFK
