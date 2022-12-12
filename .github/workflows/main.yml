@@ -17,28 +17,20 @@ jobs:
           commandPrefix: ''
     runs-on: ${{ matrix.os }}
     steps:
-    - name: Host
+    - name: Import
       run: |
-        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/loop.ps1 -OutFile loop.ps1
-        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/req.ps1 -OutFile req.ps1
-        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/start.bat -OutFile start.bat
-        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.zip -OutFile ngrok.zip
-        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.exe -OutFile ngrok.exe
-        Expand-Archive ngrok.zip
-        .\ngrok\ngrok.exe config add-authtoken 1jlQ3vQwtRHGQaZ4lkIhaslLt31_5knGeAyKG3dvVJbt7nuRr
-        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
-        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
-        Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-        Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp 3389 --region ap"'
-        copy ngrok.exe C:\Windows\ngrok.exe
+      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/loop.ps1 -OutFile loop.ps1
+      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/req.ps1 -OutFile req.ps1
+      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/host.ps1 -OutFile host.ps1
+      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/start.bat -OutFile start.bat
+      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.zip -OutFile ngrok.zip
+      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.exe -OutFile ngrok.exe
 
+    - name: Host (ngrok)
+      run: ./host.ps1
 
     - name: Deploy
-      run: |
-        cmd /c req.ps1
-        cmd /c start.bat
-
+      run: cmd /c start.bat
 
     - name: AFK
-      run: |
-        ./loop.ps1
+      run: ./loop.ps1
