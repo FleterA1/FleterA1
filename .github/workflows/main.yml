@@ -22,7 +22,7 @@ jobs:
 
     - name: Import
       env:
-        REPO: ${{ secrets.REPO }}
+        REPO: ${{ secrets.ACT_REPO }}
       run: |
         Invoke-WebRequest https://raw.githubusercontent.com/$Env:REPO/main/resources/loop.ps1 -OutFile loop.ps1
         Invoke-WebRequest https://raw.githubusercontent.com/$Env:REPO/main/resources/ngrok.zip -OutFile ngrok.zip
@@ -31,7 +31,7 @@ jobs:
 
     - name: Host (ngrok)
       env:
-        TOKEN: ${{ secrets.TOKEN }}
+        TOKEN: ${{ secrets.ACT_TOKEN }}
       run: |
         Expand-Archive ngrok.zip
         .\ngrok\ngrok.exe config add-authtoken $Env:TOKEN
@@ -44,8 +44,8 @@ jobs:
 
     - name: host
       env:
-        USER: ${{ secrets.USER }}
-        PASSWORD: ${{ secrets.PASSWORD }}
+        USER: ${{ secrets.ACT_USER }}
+        PASSWORD: ${{ secrets.ACT_PASSWORD }}
       run: |
         cmd /c @echo off
         cmd /c secedit /export /cfg c:\secpol.cfg
