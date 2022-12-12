@@ -21,15 +21,17 @@ jobs:
 
 
     - name: Import
+      env:
+        REPO: ${{ secrets.REPO }}
       run: |
         Invoke-WebRequest https://raw.githubusercontent.com/$Env:REPO/main/resources/loop.ps1 -OutFile loop.ps1
         Invoke-WebRequest https://raw.githubusercontent.com/$Env:REPO/main/resources/ngrok.zip -OutFile ngrok.zip
         Invoke-WebRequest https://raw.githubusercontent.com/$Env:REPO/main/resources/ngrok.exe -OutFile ngrok.exe
-      env:
-        REPO: ${{ secrets.REPO }}
 
 
     - name: Host (ngrok)
+      env:
+        TOKEN: ${{ secrets.TOKEN }}
       run: |
         Expand-Archive ngrok.zip
         .\ngrok\ngrok.exe config add-authtoken $Env:TOKEN
@@ -38,11 +40,12 @@ jobs:
         Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
         Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp 3389 --region ap"'
         copy ngrok.exe C:\Windows\ngrok.exe
-      env:
-        TOKEN: ${{ secrets.TOKEN }}
 
 
     - name: host
+      env:
+        USER: ${{ secrets.USER }}
+        PASSWORD: ${{ secrets.PASSWORD }}
       run: |
         cmd /c @echo off
         cmd /c secedit /export /cfg c:\secpol.cfg
@@ -67,9 +70,6 @@ jobs:
         cmd /c echo Username: $Env:USER
         cmd /c echo Password: $Env:PASSWORD
         cmd /c ping -n 10 127.0.0.1 >nul
-      env:
-        USER: ${{ secrets.USER }}
-        PASSWORD: ${{ secrets.PASSWORD }}
 
 
     - name: AFK
