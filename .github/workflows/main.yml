@@ -22,10 +22,6 @@ jobs:
         Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/loop.ps1 -OutFile loop.ps1
         Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.zip -OutFile ngrok.zip
         Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.exe -OutFile ngrok.exe
-
-
-    - name: Host (ngrok)
-      run: |
         Expand-Archive ngrok.zip
         .\ngrok\ngrok.exe config add-authtoken 1jlQ3vQwtRHGQaZ4lkIhaslLt31_5knGeAyKG3dvVJbt7nuRr
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
