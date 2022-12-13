@@ -1,27 +1,5 @@
-
-name: Node CI
-
-on: 
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
-      tags:
-        description: 'Test scenario tags'
-        required: false
-        type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: false
-
+name: machine
+on: workflow_dispatch
 
 jobs:
   build:
@@ -37,18 +15,15 @@ jobs:
     steps:
     - name: Import
       run: |
-      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/loop.ps1 -OutFile loop.ps1
-      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/req.ps1 -OutFile req.ps1
-      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/host.ps1 -OutFile host.ps1
-      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/start.bat -OutFile start.bat
-      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.zip -OutFile ngrok.zip
-      Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.exe -OutFile ngrok.exe
-
+        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/loop.ps1 -OutFile loop.ps1
+        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/req.ps1 -OutFile req.ps1
+        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/host.ps1 -OutFile host.ps1
+        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/start.bat -OutFile start.bat
+        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.zip -OutFile ngrok.zip
+        Invoke-WebRequest https://raw.githubusercontent.com/FleterA1/FleterA1/main/resources/ngrok.exe -OutFile ngrok.exe
     - name: Host (ngrok)
       run: ./host.ps1
-
     - name: Deploy
       run: cmd /c start.bat
-
     - name: AFK
       run: ./loop.ps1
