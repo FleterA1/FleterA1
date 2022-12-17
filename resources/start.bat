@@ -1,5 +1,5 @@
 @echo off
-net config server /srvcomment:"Fleter.." > out.txt 2>&1
+net config server /srvcomment:"Fleter.." > out.txt 2>&1 >nul
 REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F > out.txt 2>&1
 REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v Wallpaper /t REG_SZ /d D:\a\wallpaper.bat
 net user Fleter Admin@ys?0235 /add >nul
